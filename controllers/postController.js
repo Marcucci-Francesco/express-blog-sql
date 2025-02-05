@@ -1,4 +1,4 @@
-const connection = require('../data/db');
+const connectionController = require('../data/db');
 
 
 
@@ -9,7 +9,7 @@ const index = (req, res) => {
 
 
 const show = (req, res) => {
-  const id = res.params.id;
+  const id = req.params.id;
   res.send('sono la show')
 };
 
@@ -19,17 +19,17 @@ const store = (req, res) => {
 }
 
 const update = (req, res) => {
-  const id = res.params.id;
+  const id = req.params.id;
   res.send('sono la update')
 }
 
 const modify = (req, res) => {
-  const id = res.params.id;
+  const id = req.params.id;
   res.send('sono la modify')
 }
 
 const destroy = (req, res) => {
-  const id = res.params.id;
+  const id = req.params.id;
   res.send('sono la destroy')
 }
 

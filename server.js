@@ -2,7 +2,9 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
-const routerPost = require('./routers/routerPost');
+const blog = require('./routers/blog');
+const errorsHandler = require('./middlewares/errorsHandler');
+const notFound = require('./middlewares/notFound');
 
 
 
@@ -14,7 +16,12 @@ app.get('/', (req, res) => {
   res.send('HELLO')
 });
 
-app.use('/blog', routerPost);
+app.use(errorsHandler);
+
+app.use(notFound);
+
+
+app.use('/blog', blog);
 
 
 
