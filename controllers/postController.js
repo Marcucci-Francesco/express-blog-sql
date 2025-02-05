@@ -1,7 +1,4 @@
-import connectionController from '../data/db';
-
-
-
+import connectionController from '../data/db.js';
 
 const index = (req, res) => {
   const sql = 'SELECT * FROM posts'
@@ -35,7 +32,12 @@ const modify = (req, res) => {
 
 const destroy = (req, res) => {
   const id = req.params.id;
-  res.send('sono la destroy')
+  const sql = 'DELETE * FROM posts WHERE id= ?';
+
+  connectionController.connect(sql, [id], (err, results) => {
+    if (err) return res.status(500).json({ error: 'Eliminazione della pizza non riuscita' });
+    res.status(204);
+  })
 }
 
 

@@ -1,5 +1,5 @@
 import express from 'express';
-import { index, show, store, update, modify, destroy } from '../controllers/postController';
+import { index, show, store, update, modify, destroy } from '../controllers/postController.js';
 const router = express.Router();
 
 //Index
