@@ -1,7 +1,7 @@
 import connectionController from '../data/db.js';
 
 const index = (req, res) => {
-  const sql = 'SELECT * FROM posts'
+  const sql = `SELECT * FROM posts`
 
   connectionController.query(sql, (err, results) => {
     if (err) return res.status(500).json({ error: 'query al database fallita' })
@@ -12,7 +12,16 @@ const index = (req, res) => {
 
 const show = (req, res) => {
   const id = req.params.id;
-  res.send('sono la show')
+  const sql = `SELECT * FROM posts WHERE id = ?`;
+
+  connectionController.query(sql, [id], (err, results) => {
+    if (err) return res.status(500).json({ error: err.message });
+    if (results.length === 0) return res.status(404).json({ error: 'Post non trovato' });
+
+
+    res.json(results)
+  })
+
 };
 
 
@@ -32,9 +41,9 @@ const modify = (req, res) => {
 
 const destroy = (req, res) => {
   const id = req.params.id;
-  const sql = 'DELETE * FROM posts WHERE id= ?';
+  const sql = `DELETE * FROM posts WHERE id= ?`;
 
-  connectionController.connect(sql, [id], (err, results) => {
+  connectionController.query(sql, [id], (err, results) => {
     if (err) return res.status(500).json({ error: 'Eliminazione della pizza non riuscita' });
     res.status(204);
   })
