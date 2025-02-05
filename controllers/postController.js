@@ -14,12 +14,25 @@ const show = (req, res) => {
   const id = req.params.id;
   const sql = `SELECT * FROM posts WHERE id = ?`;
 
+  const sqlTags = `
+  SELECT Tag.*
+  FROM tags Tag
+  JOIN post_tag PT ON Tag.id = PT.tag_id
+  WHERE PT.post_id = ?
+  `
   connectionController.query(sql, [id], (err, results) => {
     if (err) return res.status(500).json({ error: err.message });
     if (results.length === 0) return res.status(404).json({ error: 'Post non trovato' });
 
+    const posts = results[0];
 
-    res.json(results)
+    connectionController.query(sqlTags, [id], (err, results) => {
+      if (err) return res.status(500).json({ error: err.message });
+      if (results.length === 0) return res.status(404).json({ error: 'Risorsa non trovata' })
+
+      posts.tags = results;
+      res.json(posts)
+    })
   })
 
 };
