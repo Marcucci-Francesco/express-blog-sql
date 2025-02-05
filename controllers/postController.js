@@ -1,4 +1,4 @@
-const connectionController = require('../data/db');
+import connectionController from '../data/db';
 
 
 
@@ -34,7 +34,7 @@ const destroy = (req, res) => {
 }
 
 
-module.exports = {
+export {
   index,
   show,
   store,

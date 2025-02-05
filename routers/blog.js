@@ -1,23 +1,23 @@
-const express = require('express');
+import express from 'express';
+import { index, show, store, update, modify, destroy } from '../controllers/postController';
 const router = express.Router();
-const postController = require('../controllers/postController');
 
 //Index
-router.get('/', postController.index);
+router.get('/', index);
 
 //Show
-router.get('/:id', postController.show);
+router.get('/:id', show);
 
 //Store
-router.post('/', postController.store);
+router.post('/', store);
 
 //Update
-router.put('/:id', postController.update);
+router.put('/:id', update);
 
 //Modify
-router.patch('/:id', postController.modify);
+router.patch('/:id', modify);
 
 //Destroy
-router.delete('/:id', postController.destroy);
+router.delete('/:id', destroy);
 
-module.exports = router;
+export default router;

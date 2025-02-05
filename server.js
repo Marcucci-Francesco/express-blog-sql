@@ -1,14 +1,15 @@
-const express = require('express');
+import express from 'express';
 const app = express();
 const port = 3000;
 
-const blog = require('./routers/blog');
-const errorsHandler = require('./middlewares/errorsHandler');
-const notFound = require('./middlewares/notFound');
+import blog from './routers/blog';
+import errorsHandler from './middlewares/errorsHandler';
+import notFound from './middlewares/notFound';
 
 
 
 app.use(express.json());
+app.use(express.static('public'));
 
 
 
@@ -16,14 +17,12 @@ app.get('/', (req, res) => {
   res.send('HELLO')
 });
 
-app.use(errorsHandler);
-
-app.use(notFound);
-
-
 app.use('/blog', blog);
 
 
+app.use(errorsHandler);
+
+app.use(notFound);
 
 
 app.listen(port, () => {
