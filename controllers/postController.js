@@ -4,7 +4,12 @@ import connectionController from '../data/db';
 
 
 const index = (req, res) => {
-  res.send('sono la index')
+  const sql = 'SELECT * FROM posts'
+
+  connectionController.query(sql, (err, results) => {
+    if (err) return res.status(500).json({ error: 'query al database fallita' })
+    res.json(results);
+  })
 };
 
 
